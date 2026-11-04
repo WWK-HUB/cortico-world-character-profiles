@@ -11,6 +11,12 @@ Coopanion 的非官方 Cortico World 纯扩展。不修改 Coopanion 安装文�
 - 天然共享：模型连接、已装扩展、语音模型文件（`providers/`、`models/`、`runtimes/`）跨角色共用。
 - 无删除：停用与解绑外观都不会删掉角色档案。
 
+> **只想装上用？** 到 [Releases](https://github.com/WWK-HUB/cortico-world-character-profiles/releases/latest)
+> 下载 `cortico-world-character-profiles-0.3.7.zip`，解压后把
+> `cortico-world-character-profiles-0.3.7/` 这一层（含 `package.json` 的那层）选进
+> Coopanion 的「扩展 → 安装」，然后**重启两次**（第一次装完，第二次打开「启用角色档案」之后）。
+> 详细步骤与常见岔路见下方[安装](#安装)。
+
 ## 版本
 
 当前 **0.3.7**，与真实安装并运行的版本一致。完整记录见 [CHANGELOG.md](CHANGELOG.md)。
