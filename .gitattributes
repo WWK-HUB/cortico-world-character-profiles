@@ -1,0 +1,9 @@
+# 其余文件统一 LF；下列三个文件在发布包里本来就是 CRLF，
+# 保留原样以保证仓库源码与通过验证的构建字节一致。
+* text=auto eol=lf
+src/profile-api.ts -text
+src/position-resume.ts -text
+src/native-presentation.mjs -text
+*.png binary
+*.jpg binary
+*.gif binary

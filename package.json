@@ -1,0 +1,41 @@
+{
+  "name": "cortico-world-character-profiles",
+  "version": "0.3.7",
+  "type": "module",
+  "description": "Coopanion 独立角色档案纯扩展：多角色部署根、原生装扮切换、管理面板。",
+  "keywords": [
+    "cortico-world",
+    "coopanion",
+    "cortico",
+    "desktop-pet",
+    "character-profiles"
+  ],
+  "license": "MIT",
+  "author": "WWK-HUB",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WWK-HUB/cortico-world-character-profiles.git"
+  },
+  "homepage": "https://github.com/WWK-HUB/cortico-world-character-profiles#readme",
+  "bugs": {
+    "url": "https://github.com/WWK-HUB/cortico-world-character-profiles/issues"
+  },
+  "main": "./src/index.ts",
+  "files": [
+    "src",
+    "types",
+    "webui",
+    "README.md",
+    "tsconfig.json"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./profile-api": "./src/profile-api.ts"
+  },
+  "cortico": {
+    "kind": "world",
+    "api": 6,
+    "displayName": "角色档案",
+    "webUiClient": "webui/webui.js"
+  }
+}
