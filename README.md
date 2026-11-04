@@ -80,15 +80,47 @@ import { createProfileService, waitForSingleMode, PROFILE_PROTOCOL } from 'corti
 
 需要 Windows 10 1809+ / Windows 11，以及支持 **World API 6** 的 Coopanion。
 
-1. 取得本仓库源码目录（git clone 或下载解压）。安装入口只接受**目录**，不直接吃 `.tgz`。
-2. 打开 Coopanion 的 WebUI →「扩展」页 → 安装 → 选择上面那个**目录**（含 `package.json`），
-   确认后等待安装完成。安装走宿主的 `POST /api/extensions/install`，需要 `corepack`/`pnpm` 可用。
-3. **重启 Coopanion**。
-4. **首次启用**：扩展安装后默认**未启用**。在 WebUI 的世界/配置组里打开
-   `worlds.character-profiles.enabled`（「角色档案」配置组 →「启用角色档案」），然后**再次重启**。
-5. 首次启动后扩展自动登记「原始角色」，此后 WebUI 的 World 区出现「角色档案」页。
+安装入口只接受**目录**，不直接吃压缩包。下面按「先下载、再选目录、再启用」三步走完。
 
-如果两步重启后仍看不到「角色档案」页，先确认第 4 步的开关确实是打开状态。
+### 1. 下载
+
+到 [Releases](https://github.com/WWK-HUB/cortico-world-character-profiles/releases) 页，
+在最新版本的 **Assets** 里下载：
+
+| 文件 | 用途 |
+| --- | --- |
+| `cortico-world-character-profiles-0.3.7.zip` | 安装包，解压后可直接选择 |
+| `cortico-world-character-profiles-0.3.7.tgz` | 同一份内容的 npm 包格式，给习惯 `npm pack` 产物的人 |
+| `*.sha256` | 校验和，可选 |
+
+两个包内容一致，只是外层目录结构不同。**推荐用 `.zip`**。
+
+### 2. 解压 ／ 确认该选哪一层
+
+安装时选的目录必须**直接包含 `package.json`**。
+
+- `.zip` 解压后得到 `cortico-world-character-profiles-0.3.7/`，这一层里就有 `package.json`、`src/`、
+  `types/`、`webui/`。**选这一层**。
+- `.tgz` 解压后得到一个 `package/` 目录，里面才是上述文件。**选 `package` 那层**。
+
+判断方法：选中后那个文件夹里应该能直接看到 `package.json` 和 `src` 文件夹。如果你看到的只是一个
+嵌套的同名文件夹，说明进错层了，往下再进一层。
+
+### 3. 安装
+
+1. 打开 Coopanion 的 WebUI →「扩展」页 → 安装 → 选择上面那个**目录**，确认后等待安装完成。
+   安装走宿主的 `POST /api/extensions/install`，需要 `corepack` / `pnpm` 可用。
+2. **重启 Coopanion**。
+3. **首次启用**：扩展安装后默认**未启用**。在 WebUI 的世界/配置组里打开
+   `worlds.character-profiles.enabled`（「角色档案」配置组 →「启用角色档案」），然后**再次重启**。
+4. 首次启动后扩展自动登记「原始角色」，此后 WebUI 的 World 区出现「角色档案」页。
+
+如果两步重启后仍看不到「角色档案」页，先确认第 3 步的开关确实是打开状态。
+
+### 从源码安装（开发者）
+
+`git clone` 本仓库，其余步骤相同：安装时选**仓库根目录**（那里就是 `package.json` 所在层）。
+源码目录与发布包逐字节一致，选哪个都行；用发布包的好处是省掉一次 clone。
 
 ## 使用
 
@@ -169,13 +201,17 @@ import { createProfileService, waitForSingleMode, PROFILE_PROTOCOL } from 'corti
 
 ## 更新与回退
 
-**本机目录安装**：宿主以 link 方式加载这个目录，不从 npm 查询更新。保留目录位置，替换成新版本
-源码，运行类型检查，然后在 Coopanion 重启进程。角色数据由宿主保存在 `CORTICO_HOME` 下，
-换版本不覆盖它。
+本扩展**不走自动更新**：宿主以目录（link）方式加载它，不会去任何地方查询新版本。
 
-**回退**：换回旧版本源码并重启即可。角色目录、注册表与 Git 历史都是纯数据，
+**升级**：从 [Releases](https://github.com/WWK-HUB/cortico-world-character-profiles/releases)
+下载新版本、解压，把旧的安装目录替换成新的（或安装新目录后再停用旧目录），然后重启 Coopanion。
+角色数据由宿主保存在 `CORTICO_HOME` 下，换版本不覆盖它。
+
+**回退**：换回旧版本目录并重启即可。角色目录、注册表与 Git 历史都是纯数据，
 不随扩展版本改变；因此降级一般安全。若新版本做过存储规范化，回退后建议先确认
 `roles/index.json` 与各角色 `companion/config.json` 的 `paths` 仍指向预期目录。
+
+升级前想留后路：把整个安装目录复制一份改名保留，它们是自包含的。
 
 ## 开发与验证
 
